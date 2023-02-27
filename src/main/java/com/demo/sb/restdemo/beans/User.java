@@ -9,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class User {
 
-	private int id;
+	private Integer id;
 	private String name;
 	private LocalDate dob;
 	
