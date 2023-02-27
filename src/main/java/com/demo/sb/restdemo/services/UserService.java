@@ -27,18 +27,25 @@ public class UserService {
 	public User getUserById(int id) {
 		Predicate<User> predicate= user->user.getId().equals(id);
 		User user = users.stream().filter(predicate).findFirst().get();
+		// User user = users.stream().filter(predicate).findFirst().orElse(null);
 		return user;
 	}
 	
 	public void addUser(User user) {
-		++userid;
+		user.setId(++userid);
 		users.add(user);		
 	}
 	
 	public User deleteUserById(int id) {
 		Predicate<User> predicate= user->user.getId().equals(id);
-		User user = users.stream().filter(predicate).findFirst().get();
-		users.remove(user);
+		/*
+		 * User user = users.stream().filter(predicate).findFirst().get();
+		 * User user = users.stream().filter(predicate).findFirst().orElse(null);
+		 * users.remove(user);
+		 */
+		
+		users.removeIf(predicate);
+		User user = users.stream().filter(predicate).findFirst().orElse(null); //it is just for returning purpose
 		return user;
 	}
 }
