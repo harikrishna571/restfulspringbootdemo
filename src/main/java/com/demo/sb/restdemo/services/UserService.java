@@ -32,7 +32,13 @@ public class UserService {
 	
 	public void addUser(User user) {
 		++userid;
-		users.add(user);
-		
+		users.add(user);		
+	}
+	
+	public User deleteUserById(int id) {
+		Predicate<User> predicate= user->user.getId().equals(id);
+		User user = users.stream().filter(predicate).findFirst().get();
+		users.remove(user);
+		return user;
 	}
 }
