@@ -13,7 +13,7 @@ public class User {
 
 	private Integer id;
 	
-	@Size(min = 2)
+	@Size(min = 2,message = "name should be more than 2 characters")
 	private String name;
 	
 	@Past

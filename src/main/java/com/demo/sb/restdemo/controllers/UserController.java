@@ -1,8 +1,12 @@
 package com.demo.sb.restdemo.controllers;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +23,15 @@ import jakarta.validation.Valid;
 @RestController
 public class UserController {
 	
+	private MessageSource msg;	
+	
+	//@Value(na)
+	//String nsgValue;
+	
+	public UserController(MessageSource msg) {
+		this.msg = msg;
+	}
+
 	@Autowired
 	UserService userSerice;
 
@@ -48,5 +61,12 @@ public class UserController {
 	@DeleteMapping("/users/{id}")
 	public User deleteByUserId(@PathVariable int id){
 		return userSerice.deleteUserById(id);
+	}
+	
+	/* for Internationalization - I18N*/
+	@GetMapping("/message")
+	public String getMsg() {		
+		Locale locale=LocaleContextHolder.getLocale();
+		return msg.getMessage("good.morning.message", null, "Default message", locale);
 	}
 }

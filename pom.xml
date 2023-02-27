@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.0.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.demo.sb</groupId>
 	<artifactId>rest-demo</artifactId>
@@ -35,6 +35,26 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		<!--
+		springdoc-openapi java library helps to automate the generation of API documentation using spring boot projects.
+		This will automatically deploy swagger-ui to a spring-boot application:
+		http://localhost:8080/swagger-ui.html
+		
+		for more info : https://springdoc.org/v2/
+		
+		-->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+		
+		<!-- for content - negotiation , if consumer wants in xml format from RestAPI provider-->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+		
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -51,7 +71,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -76,5 +95,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
