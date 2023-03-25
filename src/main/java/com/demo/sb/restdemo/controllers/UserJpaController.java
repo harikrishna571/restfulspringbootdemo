@@ -2,6 +2,7 @@ package com.demo.sb.restdemo.controllers;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -15,33 +16,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.sb.restdemo.beans.User;
+import com.demo.sb.restdemo.jpa.UserRepository;
 import com.demo.sb.restdemo.services.UserService;
 
 import jakarta.validation.Valid;
 
 @RestController
-public class UserController {
+public class UserJpaController {
 	
 	private MessageSource msg;	
 	
 	//@Value(na)
 	//String nsgValue;
 	
-	public UserController(MessageSource msg) {
+	public UserJpaController(MessageSource msg) {
 		this.msg = msg;
 	}
 
 	@Autowired
 	UserService userSerice;
+	
+	@Autowired
+	UserRepository userRepository;
 
-	@GetMapping("/users")
+	@GetMapping("/jpa/users")
 	public List<User> getAllUsers(){
-		return userSerice.getUsers();
+		return userRepository.findAll();
 	}
 	
-	@GetMapping("/users/{id}")
-	public User getAllUsers(@PathVariable int id){
-		return userSerice.getUserById(id);
+	@GetMapping("/jpa/users/{id}")
+	public Optional<User> getAllUsers(@PathVariable int id){
+		return userRepository.findById(id);
 	}
 	
 	/*
@@ -50,20 +55,20 @@ public class UserController {
 	 */
 	
 	/* after adding the user send the proper respone*/
-	@PostMapping("/users")
+	@PostMapping("/jpa/users")
 	public ResponseEntity<User> AddUserRes(@Valid @RequestBody User user){
 		
 		userSerice.addUser(user);
 		return ResponseEntity.created(null).build();
 	}
 	
-	@DeleteMapping("/users/{id}")
-	public User deleteByUserId(@PathVariable int id){
-		return userSerice.deleteUserById(id);
+	@DeleteMapping("/jpa/users/{id}")
+	public void deleteByUserId(@PathVariable int id){
+		userRepository.deleteById(id);
 	}
 	
 	/* for Internationalization - I18N*/
-	@GetMapping("/message")
+	@GetMapping("/jpa/message")
 	public String getMsg() {		
 		Locale locale=LocaleContextHolder.getLocale();
 		return msg.getMessage("good.morning.message", null, "Default message", locale);
