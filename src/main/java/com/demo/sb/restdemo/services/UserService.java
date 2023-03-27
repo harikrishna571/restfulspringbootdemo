@@ -16,8 +16,8 @@ public class UserService {
 	static int userid=0;
 
 	static {
-		users.add(new User(++userid, "Revi", LocalDate.now().minusYears(30)));
-		users.add(new User(++userid, "kevi", LocalDate.now().minusYears(32)));
+		//users.add(new User(++userid, "Revi", LocalDate.now().minusYears(30)));
+		//users.add(new User(++userid, "kevi", LocalDate.now().minusYears(32)));
 	}
 
 	public List<User> getUsers() {

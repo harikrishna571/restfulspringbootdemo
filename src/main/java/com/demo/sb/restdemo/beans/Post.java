@@ -1,38 +1,32 @@
 package com.demo.sb.restdemo.beans;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.Past;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "User_details")
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Post {
 
 	@Id
 	@GeneratedValue
 	private Integer id;
 	
-	@Size(min = 2,message = "name should be more than 2 characters")
-	private String name;
+	@Size(min = 2,message = "desc should be more than 2 characters")
+	private String desc;
 	
-	@Past
-	private LocalDate dob;
-	
-	@OneToMany(mappedBy = "user")
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnore
-	private List<Post> posts;
+	private User user;
 	
 }
